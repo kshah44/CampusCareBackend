@@ -23,7 +23,7 @@ public class ConsumerController {
 		return consumerservice.getAllConsumers();
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/login")
+	@RequestMapping(method=RequestMethod.POST, value="/loginconsumer")
 	public Consumer verifyLogin(@RequestBody Consumer consumer) {
 		return consumerservice.verifyLogin(consumer.getUserName(), consumer.getPassword());
 		

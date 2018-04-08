@@ -1,15 +1,17 @@
 package com.ssdi.campuscare.dao;
 
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 import com.ssdi.campuscare.model.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import com.ssdi.campuscare.model.Provider;
 
 @Repository
 public class ProviderDao implements IProviderDao {
@@ -54,6 +56,27 @@ public class ProviderDao implements IProviderDao {
 		RowMapper<Provider> rowMapper = new ProviderRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}
+	@Override
+	public JSONArray getAllProviderNames() {
+		JSONArray arr = new JSONArray();
+		String sql = "SELECT concat(firstname,' ',lastname) as fullname from provider";
+		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql);
+		for(Map res:result) {
+			JSONObject obj = new JSONObject();
+			obj.put("fullname", res.get("fullname"));
+			arr.put(obj);
+		}
+		
+		return arr;
+		
+	}
+	public Provider providerProfile(String username) {
+		String sql = "select * from provider where username = ?";
+		RowMapper<Provider> rowMapper = new ProviderRowMapper();
+		Provider provider = jdbcTemplate.queryForObject(sql, rowMapper,username);
+		return provider;
+	}
+	
 
 	@Override
 	public Provider verifyLogin(String username, String password) {

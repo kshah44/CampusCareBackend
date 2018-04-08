@@ -57,19 +57,7 @@ public class ConsumerDao implements IConsumerDao {
 		RowMapper<Consumer> rowMapper = new ConsumerRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}
-	public JSONArray getAllConsumerNames() {
-		JSONArray arr = new JSONArray();
-		String sql = "SELECT concat(firstname,' ',lastname) as fullname from consumer";
-		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql);
-		for(Map res:result) {
-			JSONObject obj = new JSONObject();
-			obj.put("fullname", res.get("fullname"));
-			arr.put(obj);
-		}
-		
-		return arr;
-		
-	}
+	
 
 	@Override
 	public Consumer verifyLogin(String username, String password) {
@@ -105,5 +93,21 @@ public class ConsumerDao implements IConsumerDao {
 		Consumer consumer = jdbcTemplate.queryForObject(sql, rowMapper,username);
 		return consumer;
 	}
+	
+	@Override
+	public JSONArray getAllConsumerNames() {
+		JSONArray arr = new JSONArray();
+		String sql = "SELECT concat(firstname,' ',lastname) as fullname from consumer";
+		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql);
+		for(Map res:result) {
+			JSONObject obj = new JSONObject();
+			obj.put("fullname", res.get("fullname"));
+			arr.put(obj);
+		}
+		
+		return arr;
+		
+	}
+	
 
 }

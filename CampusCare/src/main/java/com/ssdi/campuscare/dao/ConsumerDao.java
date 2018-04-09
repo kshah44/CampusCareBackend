@@ -21,7 +21,7 @@ public class ConsumerDao implements IConsumerDao {
 	public boolean findConsumerByUsername(String username) {
 		String sql = "SELECT count(1) FROM consumer where username = ?";
 		int count = jdbcTemplate.queryForObject(sql, Integer.class, username);
-
+		
 		if (count == 1) { 
 			return true; 
 		}

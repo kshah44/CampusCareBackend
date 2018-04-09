@@ -24,6 +24,7 @@ public class ConsumerService implements IConsumerService {
 	public JSONArray getAllConsumerNames() {
 		return consumerdao.getAllConsumerNames();
 	}
+	@Override
 	public Consumer consumerProfile(String username) {
 		return consumerdao.consumerProfile(username);
 	}

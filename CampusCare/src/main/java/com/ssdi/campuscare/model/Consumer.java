@@ -1,6 +1,6 @@
 package com.ssdi.campuscare.model;
 
-//comment to test branch configuration.
+//comment to test branch configuration again.
 
 public class Consumer {
 	

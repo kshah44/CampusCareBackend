@@ -1,9 +1,12 @@
 package com.ssdi.campuscare.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ssdi.campuscare.model.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -54,6 +57,7 @@ public class ConsumerDao implements IConsumerDao {
 		RowMapper<Consumer> rowMapper = new ConsumerRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}
+	
 
 	@Override
 	public Consumer verifyLogin(String username, String password) {
@@ -81,5 +85,29 @@ public class ConsumerDao implements IConsumerDao {
 				consumer.getEmail(), consumer.getPassword());
 		return consumer;
 	}
+
+	@Override
+	public Consumer consumerProfile(String username) {
+		String sql = "select * from consumer where username = ?";
+		RowMapper<Consumer> rowMapper = new ConsumerRowMapper();
+		Consumer consumer = jdbcTemplate.queryForObject(sql, rowMapper,username);
+		return consumer;
+	}
+	
+	@Override
+	public JSONArray getAllConsumerNames() {
+		JSONArray arr = new JSONArray();
+		String sql = "SELECT concat(firstname,' ',lastname) as fullname from consumer";
+		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql);
+		for(Map res:result) {
+			JSONObject obj = new JSONObject();
+			obj.put("fullname", res.get("fullname"));
+			arr.put(obj);
+		}
+		
+		return arr;
+		
+	}
+	
 
 }

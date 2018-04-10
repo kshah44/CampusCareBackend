@@ -53,7 +53,7 @@ public class ConsumerDao implements IConsumerDao {
 	@Override
 	public List<Consumer> getAllConsumers() {
 
-		String sql = "select username, firstname, lastname, email, password from consumer";
+		String sql = "select consumer_id, username, firstname, lastname, email, password from consumer";
 		RowMapper<Consumer> rowMapper = new ConsumerRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}
@@ -66,7 +66,7 @@ public class ConsumerDao implements IConsumerDao {
 		int count = jdbcTemplate.queryForObject(sql1, Integer.class, username, password);
 
 		if (count == 1) {
-			String sql2 = "select username, firstname, lastname, email, password from consumer where username = ? and password = ?";
+			String sql2 = "select consumer_id, username, firstname, lastname, email, password from consumer where username = ? and password = ?";
 			RowMapper<Consumer> rowMapper = new ConsumerRowMapper();
 			Consumer consumer = jdbcTemplate.queryForObject(sql2, rowMapper, username, password);
 			return consumer;

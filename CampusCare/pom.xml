@@ -54,7 +54,13 @@
 		    <version>20180130</version>
 		</dependency>
 		
-
+        <dependency>
+   			<groupId>org.jmockit</groupId> 
+   			<artifactId>jmockit</artifactId> 
+   			<version>1.39</version>
+  		 	<scope>test</scope>
+		</dependency>
+        
 	</dependencies>
 
 	<build>

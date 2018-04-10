@@ -52,7 +52,7 @@ public class ProviderDao implements IProviderDao {
 	@Override
 	public List<Provider> getAllProviders() {
 
-		String sql = "select username, firstname, lastname, email, password from provider";
+		String sql = "select provider_id, username, firstname, lastname, email, password from provider";
 		RowMapper<Provider> rowMapper = new ProviderRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}
@@ -85,7 +85,7 @@ public class ProviderDao implements IProviderDao {
 		int count = jdbcTemplate.queryForObject(sql1, Integer.class, username, password);
 
 		if (count == 1) {
-			String sql2 = "select username, firstname, lastname, email, password from provider where username = ? and password = ?";
+			String sql2 = "select provider_id, username, firstname, lastname, email, password from provider where username = ? and password = ?";
 			RowMapper<Provider> rowMapper = new ProviderRowMapper();
 			Provider provider = jdbcTemplate.queryForObject(sql2, rowMapper, username, password);
 			return provider;

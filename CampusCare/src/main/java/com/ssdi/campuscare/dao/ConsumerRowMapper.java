@@ -9,6 +9,7 @@ public class ConsumerRowMapper implements RowMapper<Consumer> {
 
 	public Consumer mapRow(ResultSet row, int rowNum) throws SQLException {
 		Consumer consumer = new Consumer();
+		consumer.setConsumerId(row.getInt("consumer_id"));
 		consumer.setUserName(row.getString("username"));
 		consumer.setFirstName(row.getString("firstname"));
 		consumer.setLastName(row.getString("lastname"));

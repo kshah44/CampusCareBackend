@@ -1,6 +1,6 @@
 package com.ssdi.campuscare.model;
 
-public interface IConsumer {
+public interface IProvider {
 
 	public String getUserName();
 	public void setUserName(String userName);
@@ -16,5 +16,5 @@ public interface IConsumer {
 	
 	public String getPassword();
 	public void setPassword(String password);
-
+	
 }

@@ -21,11 +21,10 @@ public class ConsumerService implements IConsumerService {
 	public List<Consumer> getAllConsumers() {
 		return consumerdao.getAllConsumers();
 	}
-
 	public JSONArray getAllConsumerNames() {
 		return consumerdao.getAllConsumerNames();
 	}
-
+	@Override
 	public Consumer consumerProfile(String username) {
 		return consumerdao.consumerProfile(username);
 	}

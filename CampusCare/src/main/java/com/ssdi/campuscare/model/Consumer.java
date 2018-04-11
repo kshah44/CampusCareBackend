@@ -11,12 +11,10 @@ public class Consumer {
 	private String password;
 	
 	public Consumer() {
-		super();
 	}
 
 
 	public Consumer(String userName, String firstName, String lastName, String email, String password) {
-		super();
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -74,4 +72,22 @@ public class Consumer {
 		this.password = password;
 	}
 
+	@Override
+	public boolean equals(Object rhs) {
+		Consumer rhs_actual = (Consumer) rhs;
+		System.out.println("In Consumer::equals");
+		if(rhs_actual.userName.equals(this.userName)  && 
+		   rhs_actual.email.equals( this.email))  
+		{
+			System.out.println("In Consumer::equals : inside if statement when true");	
+			return true;
+		}
+		else
+		{
+			System.out.println("In Consumer::equals : inside if statement when false");
+			return false;
+		}
+			
+	}
 }
+

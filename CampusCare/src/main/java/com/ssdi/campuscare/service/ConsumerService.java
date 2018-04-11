@@ -2,7 +2,6 @@ package com.ssdi.campuscare.service;
 
 import java.util.List;
 
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +20,6 @@ public class ConsumerService implements IConsumerService {
 	public List<Consumer> getAllConsumers() {
 		return consumerdao.getAllConsumers();
 	}
-	public JSONArray getAllConsumerNames() {
-		return consumerdao.getAllConsumerNames();
-	}
-	@Override
-	public Consumer consumerProfile(String username) {
-		return consumerdao.consumerProfile(username);
-	}
 
 	@Override
 	public Consumer verifyLogin(String username, String password) {
@@ -36,7 +28,7 @@ public class ConsumerService implements IConsumerService {
 
 	@Override
 	public Consumer createConsumer(Consumer consumer) {
-		
+		System.out.println("In ConsumerService::createConsumer");
 		if (consumerdao.findConsumerByUsername(consumer.getUserName()) == false
 			&& consumerdao.findConsumerByEmail(consumer.getEmail()) == false)
 		{

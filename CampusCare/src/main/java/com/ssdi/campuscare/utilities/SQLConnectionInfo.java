@@ -1,5 +1,6 @@
 package com.ssdi.campuscare.utilities;
 
+
 public class SQLConnectionInfo implements ISQLConnection{
 
 	public String getURL() {
@@ -13,3 +14,4 @@ public class SQLConnectionInfo implements ISQLConnection{
 	};
 	
 }
+

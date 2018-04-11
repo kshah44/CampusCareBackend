@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConsumerRowMapper implements RowMapper<Consumer> {
-
+	
 	public Consumer mapRow(ResultSet row, int rowNum) throws SQLException {
 		Consumer consumer = new Consumer();
 		consumer.setUserName(row.getString("username"));
@@ -15,6 +15,20 @@ public class ConsumerRowMapper implements RowMapper<Consumer> {
 		consumer.setEmail(row.getString("email"));
 		consumer.setPassword(row.getString("password"));
 		return consumer;
+	}
+	
+	@Override
+	public boolean equals(Object rhs) {
+		ConsumerRowMapper rhs_actual = (ConsumerRowMapper) rhs;
+		if(rhs_actual.getClass() == this.getClass())
+		{	
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+			
 	}
 	
 }

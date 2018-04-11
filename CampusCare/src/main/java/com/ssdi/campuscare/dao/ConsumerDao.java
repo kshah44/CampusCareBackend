@@ -16,6 +16,8 @@ public class ConsumerDao implements IConsumerDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	private List<Consumer> listConsumer;
 
 	@Override
 	public boolean findConsumerByUsername(String username) {
@@ -28,7 +30,6 @@ public class ConsumerDao implements IConsumerDao {
 		else {
 			return false;
 		}
-		
 	}
 	
 	@Override
@@ -42,7 +43,6 @@ public class ConsumerDao implements IConsumerDao {
 		else {
 			return false;
 		}
-
 	}
 
 	

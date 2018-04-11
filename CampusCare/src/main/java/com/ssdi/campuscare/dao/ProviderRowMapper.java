@@ -16,6 +16,18 @@ public class ProviderRowMapper implements RowMapper<Provider> {
 		provider.setPassword(row.getString("password"));
 		return provider;
 	}
-	
+	@Override
+	public boolean equals(Object rhs) {
+		ProviderRowMapper rhs_actual = (ProviderRowMapper) rhs;
+		if(rhs_actual.getClass() == this.getClass())
+		{	
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+			
+	}
 }
 

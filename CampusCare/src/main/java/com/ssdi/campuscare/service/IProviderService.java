@@ -9,5 +9,6 @@ public interface IProviderService {
 	public List<Provider> getAllProviders();
 	public Provider verifyLogin(String username, String password);
 	public Provider createProvider(Provider provider);
+	public Provider getProviderById(int id);
 
 }

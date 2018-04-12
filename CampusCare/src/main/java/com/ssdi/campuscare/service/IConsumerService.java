@@ -10,5 +10,6 @@ public interface IConsumerService {
 	public Consumer verifyLogin(String username, String password);
 	public Consumer createConsumer(Consumer consumer);
 	public Consumer consumerProfile(String userrname);
+	public Consumer getConsumerById(int id);
 
 }

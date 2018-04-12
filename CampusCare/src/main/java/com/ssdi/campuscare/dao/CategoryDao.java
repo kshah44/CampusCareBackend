@@ -65,5 +65,4 @@ public class CategoryDao implements ICategoryDao {
 		
 		return getProviderCategories(provider_id);
 	}
-
 }

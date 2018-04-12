@@ -15,5 +15,6 @@ public interface IProviderDao {
 	public boolean findProviderByUsername(String username);
 	public boolean findProviderByEmail(String email);
 	public Provider providerProfile(String username);
+	public Provider getProviderById(int id);
 
 }

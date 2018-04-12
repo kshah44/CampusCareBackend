@@ -9,6 +9,7 @@ public class ProviderRowMapper implements RowMapper<Provider> {
 
 	public Provider mapRow(ResultSet row, int rowNum) throws SQLException {
 		Provider provider = new Provider();
+		provider.setProviderId(row.getInt("provider_id"));
 		provider.setUserName(row.getString("username"));
 		provider.setFirstName(row.getString("firstname"));
 		provider.setLastName(row.getString("lastname"));

@@ -1,24 +1,42 @@
 package com.ssdi.campuscare.model;
 
-public class Provider {
+public class Provider implements IProvider {
 
+	private int providerId;
 	private String userName;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	
+
 	public Provider() {
-		super();
+
 	}
 
 	public Provider(String userName, String firstName, String lastName, String email, String password) {
-		super();
+		this.providerId = -1;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+	}
+
+	public Provider(int providerId, String userName, String firstName, String lastName, String email, String password) {
+		this.providerId = providerId;
+		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
+
+	public int getProviderId() {
+		return providerId;
+	}
+
+	public void setProviderId(int providerId) {
+		this.providerId = providerId;
 	}
 
 	public String getUserName() {
@@ -60,5 +78,5 @@ public class Provider {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }

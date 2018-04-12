@@ -39,6 +39,12 @@ public class ProviderController {
 		return providerservice.providerProfile(provider.getUserName());
 		
 	}
+	@RequestMapping(method=RequestMethod.POST, value="/providerid")
+	
+	public Provider getProviderById(@RequestBody Provider provider) {
+		return providerservice.getProviderById(provider.getProviderId());
+		
+	}
 	
 	
 	

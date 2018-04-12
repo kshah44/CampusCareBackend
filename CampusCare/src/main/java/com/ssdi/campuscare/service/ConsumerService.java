@@ -51,5 +51,10 @@ public class ConsumerService implements IConsumerService {
 			
 		
 	}
+	@Override
+	public Consumer getConsumerById(int id) {
+		
+		return consumerdao.getConsumerById(id);
+	}
 
 }

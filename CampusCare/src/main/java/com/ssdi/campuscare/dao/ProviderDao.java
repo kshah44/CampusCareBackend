@@ -59,11 +59,14 @@ public class ProviderDao implements IProviderDao {
 	@Override
 	public JSONArray getAllProviderNames() {
 		JSONArray arr = new JSONArray();
-		String sql = "SELECT concat(firstname,' ',lastname) as fullname from provider";
+		String sql = "SELECT concat(firstname,' ',lastname) as fullname,email,username,provider_id from provider";
 		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql);
 		for(Map res:result) {
 			JSONObject obj = new JSONObject();
 			obj.put("fullname", res.get("fullname"));
+			obj.put("email", res.get("email"));
+			obj.put("userName", res.get("userName"));
+			obj.put("providerId", res.get("provider_id"));
 			arr.put(obj);
 		}
 		
@@ -102,6 +105,14 @@ public class ProviderDao implements IProviderDao {
 		String sql = "INSERT INTO provider (username, firstname, lastname, email, password) values (?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, provider.getUserName(), provider.getFirstName(), provider.getLastName(),
 				provider.getEmail(), provider.getPassword());
+		return provider;
+	}
+
+	@Override
+	public Provider getProviderById(int id) {
+		String sql = "select * from provider where provider_id = ?";
+		RowMapper<Provider> rowMapper = new ProviderRowMapper();
+		Provider provider = jdbcTemplate.queryForObject(sql, rowMapper,id);
 		return provider;
 	}
 

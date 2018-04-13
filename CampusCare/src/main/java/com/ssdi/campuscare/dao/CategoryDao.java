@@ -24,8 +24,7 @@ public class CategoryDao implements ICategoryDao {
 	@Override
 	public List<Category> getAllCategories() {
 
-		System.out.println("getAllCategories");
-
+		System.out.println("Inside CategoryDao : Inside getAllCategories method");
 		String sql = "select category_id, category_name from category";
 		RowMapper<Category> rowMapper = new CategoryRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);

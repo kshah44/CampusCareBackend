@@ -7,7 +7,8 @@ public class Category implements ICategory {
 
 	
 	public Category() {
-
+        this.categoryId = -1;
+		this.categoryName = null;
 	}
 
 	public Category(String categoryName) {

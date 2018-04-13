@@ -15,5 +15,6 @@ public interface IConsumerDao {
 	public boolean findConsumerByUsername(String username);
 	public boolean findConsumerByEmail(String email);
 	public Consumer consumerProfile(String username);
+	public Consumer getConsumerById(int id);
 
 }

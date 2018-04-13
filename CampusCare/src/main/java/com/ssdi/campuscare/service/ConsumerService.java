@@ -21,10 +21,10 @@ public class ConsumerService implements IConsumerService {
 	public List<Consumer> getAllConsumers() {
 		return consumerdao.getAllConsumers();
 	}
-
 	public JSONArray getAllConsumerNames() {
 		return consumerdao.getAllConsumerNames();
 	}
+	@Override
 
 	public Consumer consumerProfile(String username) {
 		return consumerdao.consumerProfile(username);
@@ -37,15 +37,24 @@ public class ConsumerService implements IConsumerService {
 
 	@Override
 	public Consumer createConsumer(Consumer consumer) {
-
+		
 		if (consumerdao.findConsumerByUsername(consumer.getUserName()) == false
-				&& consumerdao.findConsumerByEmail(consumer.getEmail()) == false) {
+			&& consumerdao.findConsumerByEmail(consumer.getEmail()) == false)
+		{
 			return consumerdao.createConsumer(consumer);
-		} else {
+		}
+		else {
 			Consumer consumer1 = new Consumer();
 			return consumer1;
 		}
-
+			
+			
+		
+	}
+	@Override
+	public Consumer getConsumerById(int id) {
+		
+		return consumerdao.getConsumerById(id);
 	}
 
 }

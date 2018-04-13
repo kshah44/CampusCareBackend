@@ -111,6 +111,5 @@ public class ConsumerDaoTest {
 				assertEquals(consumer, consumerDao.createConsumer(consumer));
 			}
 		};
-	}
-
+}
 }

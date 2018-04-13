@@ -12,10 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssdi.campuscare.controller.ConsumerController;
-import com.ssdi.campuscare.model.Consumer;
-import com.ssdi.campuscare.service.ConsumerService;
-import com.ssdi.campuscare.service.IConsumerService;
+import com.ssdi.campuscare.controller.ProviderController;
+import com.ssdi.campuscare.model.Provider;
+import com.ssdi.campuscare.service.ProviderService;
 
 import mockit.Expectations;
 import mockit.Injectable;
@@ -24,13 +23,13 @@ import mockit.integration.junit4.JMockit;
 
 @RunWith(JMockit.class)
 @SpringBootTest
-public class ConsumerControllerTest {
+public class ProviderControllerTest {
 	
 	@Tested(availableDuringSetup = true)
-	private ConsumerController consumerController;
+	private ProviderController providerController;
 	
 	@Injectable
-	private ConsumerService consumerService;
+	private ProviderService providerService;
 	
 	private MockMvc mockMvc;
 	
@@ -40,30 +39,30 @@ public class ConsumerControllerTest {
 	public void init()
 	{
 		objectMapper = new ObjectMapper();
-		mockMvc = MockMvcBuilders.standaloneSetup(consumerController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(providerController).build();
 	}
 	
 
 	@Test
 	public void testVerifyLogin() 
 	{
-		Consumer consumer = new Consumer();
+		Provider provider = new Provider();
 		//Given the username is username and the password is password
-		consumer.setUserName("username");
-		consumer.setPassword("password");
+		provider.setUserName("username");
+		provider.setPassword("password");
 		
 		//This will execute after the connection is tested
 		new Expectations()
 		{{
-			consumerService.verifyLogin(consumer.getUserName(), consumer.getPassword());
+			providerService.verifyLogin(provider.getUserName(), provider.getPassword());
 		}};
 		
 		//Testing the connection with this url
 		try
 		{
-			mockMvc.perform(post("/loginconsumer")
+			mockMvc.perform(post("/loginprovider")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(consumer)))
+			.content(objectMapper.writeValueAsString(provider)))
 			.andExpect(status().isOk());
 		}
 		catch(Exception e)
@@ -73,27 +72,27 @@ public class ConsumerControllerTest {
 	}
 
 	@Test
-	public void testCreateConsumer() {
-		Consumer consumer = new Consumer();
+	public void testCreateProvider() {
+		Provider provider = new Provider();
 		//Given the username is username, the password is password, the email is hot@hotmail.com, and the name is Margeret Spyro
-		consumer.setUserName("username");
-		consumer.setPassword("password");
-		consumer.setEmail("hot@hotmail.com");
-		consumer.setFirstName("Margeret");
-		consumer.setLastName("Spyro");
+		provider.setUserName("username");
+		provider.setPassword("password");
+		provider.setEmail("hot@hotmail.com");
+		provider.setFirstName("Margeret");
+		provider.setLastName("Spyro");
 		
 		//This will execute after the connection is tested
 		new Expectations()
 		{{
-			consumerService.createConsumer(consumer);
+			providerService.createProvider(provider);
 		}};
 		
 		//Testing the connection with this url
 		try
 		{
-			mockMvc.perform(post("/createconsumer")
+			mockMvc.perform(post("/createprovider")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(consumer)))
+			.content(objectMapper.writeValueAsString(provider)))
 			.andExpect(status().isOk());
 		}
 		catch(Exception e)

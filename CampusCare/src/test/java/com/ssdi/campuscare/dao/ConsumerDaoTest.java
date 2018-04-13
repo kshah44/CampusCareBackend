@@ -61,7 +61,7 @@ public class ConsumerDaoTest {
 		int count = jdbcTemplate.queryForObject(sql, Integer.class, consumer.getEmail());
 		new Verifications() {
 			{
-				assertEquals(false, consumerDao.findConsumerByEmail(consumer.getEmail()));
+				assertEquals(true, consumerDao.findConsumerByEmail(consumer.getEmail()));
 			}
 		};
 	}

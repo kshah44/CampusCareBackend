@@ -1,21 +1,23 @@
 package com.ssdi.campuscare.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ssdi.campuscare.dao.IConsumerDao;
 import com.ssdi.campuscare.model.Consumer;
-import com.ssdi.campuscare.service.ConsumerService;
 
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Tested;
+import mockit.Verifications;
 import mockit.integration.junit4.JMockit;
 
 @RunWith(JMockit.class)
@@ -70,5 +72,99 @@ public class ConsumerServiceTest {
 		// internally called createConsumer method of ConsumerDAO.
 		consumerService.createConsumer(consumer);
 	}
+
+	
+	@Test
+	public void testGetAllConsumerNames() {
+		JSONArray arr = new JSONArray();
+		
+		JSONObject obj_1 = new JSONObject();
+		obj_1.put("fullname","Kush Shah");
+		obj_1.put("email","kshah44@campuscare.com");
+		obj_1.put("userName","shahkush18");
+		obj_1.put("consumerId","5");
+		arr.put(obj_1);
+		
+		JSONObject obj_2 = new JSONObject();
+		obj_2.put("fullname","Heli Choksi");
+		obj_2.put("email","h44choksi@campuscare.com");
+		obj_2.put("userName","heli18");
+		obj_2.put("consumerId","7");
+		arr.put(obj_2);
+
+		// Expectation: The getAllConsumerNames method of Consumer DAO should get invoked
+		new Expectations() {
+			{
+				consumerDao.getAllConsumerNames(); result = arr;
+			}
+		};
+
+		// When: When the getAllConsumerNames method is invoked from Service layer, it should
+		// internally called getAllConsumerNames method of ConsumerDAO.
+		consumerService.getAllConsumerNames();
+
+		new Verifications() {
+			{
+				assertEquals(2, arr.length());
+				assertEquals("shahkush18",  ((JSONObject) arr.get(0)).get("userName"));
+				assertEquals("heli18",  ((JSONObject) arr.get(1)).get("userName"));
+			}
+		};
+	}
+	
+	
+	@Test
+	public void testgetAllConsumers() {
+		List<Consumer> consumerList = new ArrayList<Consumer>();
+		consumerList.add(new Consumer(1, "shashi", "Shashi","Jaiswal", "shashi@gmail.com", "password11"));
+		consumerList.add(new Consumer(1, "kush", "Kush","Shah", "Kush@gmail.com", "password22"));
+		
+		// Expectation: The getAllConsumers method of Consumer DAO should get invoked
+		new Expectations() {
+			{
+				consumerDao.getAllConsumers(); result = consumerList;
+			}
+		};
+
+		// When: When the getAllConsumerNames method is invoked from Service layer, it should
+		// internally called getAllConsumerNames method of ConsumerDAO.
+		consumerService.getAllConsumers();
+
+		new Verifications() {
+			{
+				assertEquals(2, consumerList.size());
+				assertEquals("Shashi", consumerList.get(0).getFirstName());
+				assertEquals("Jaiswal", consumerList.get(0).getLastName());
+				assertEquals("Kush", consumerList.get(1).getFirstName());
+				assertEquals("Shah", consumerList.get(1).getLastName());
+			}
+		};
+	}
+	
+	@Test
+	public void testConsumerProfile() {
+		Consumer consumer = new Consumer(1, "shashi", "Shashi","Jaiswal", "shashi@gmail.com", "password11");
+		
+		
+		// Expectation: The consumerProfile method of Consumer DAO should get invoked
+		new Expectations() {
+			{
+				consumerDao.consumerProfile(consumer.getUserName()); result = consumer;
+			}
+		};
+
+		// When: When the consumerProfile method is invoked from Service layer, it should
+		// internally called consumerProfile method of ConsumerDAO.
+		consumerService.consumerProfile(consumer.getUserName());
+
+		new Verifications() {
+			{
+				assertEquals("Shashi", consumer.getFirstName());
+				assertEquals("Jaiswal", consumer.getLastName());
+				assertEquals("shashi@gmail.com", consumer.getEmail());
+			}
+		};
+	}
+	
 
 }

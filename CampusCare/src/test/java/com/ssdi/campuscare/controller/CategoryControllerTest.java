@@ -98,20 +98,14 @@ public class CategoryControllerTest {
 	}
 
 
-	/*
+	
 	@Test
 	public void testAddProviderCategory() {
-		String str = "{\"providerId\": \"2\",\"categoryId\": \"1\"}";
-		JSONObject json = new JSONObject(str);
-		//Category category = new Category(1, "Sports");
 		
-		//JSONObject json = new JSONObject();
-		//json.put("providerId","2");
-		//json.put("categoryId","1");
+		JSONObject json = new JSONObject();
+		json.put("providerId","2");
+		json.put("categoryId","1");
 				
-		
-		//System.out.println("Displaying JSON object - providerId :" +json.get("providerId"));
-		//System.out.println("Displaying JSON object - categoryId :" +json.get("categoryId"));
 				
 		new Expectations()
 		{{
@@ -123,16 +117,47 @@ public class CategoryControllerTest {
 		try
 		{
 			mockMvc.perform(post("/addprovidercategory")
-			.contentType(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(json.toString())))
-			.andExpect(status().isOk());
+					.contentType(MediaType.ALL)
+					.content(json.toString()))
+					.andExpect(status().isOk());
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 		
-	} */
+	} 
+
+	
+	
+	@Test
+	public void testremoveProviderCategory() {
+		
+		JSONObject json = new JSONObject();
+		json.put("providerId","3");
+		json.put("categoryId","5");
+				
+				
+		new Expectations()
+		{{
+			categoryService.removeProviderCategory(Integer.parseInt((String) json.get("providerId")),
+					Integer.parseInt((String) json.get("categoryId")));
+		}};
+		
+		
+		try
+		{
+			mockMvc.perform(post("/removeprovidercategory")
+					.contentType(MediaType.ALL)
+					.content(json.toString()))
+					.andExpect(status().isOk());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	} 
 
 }
 

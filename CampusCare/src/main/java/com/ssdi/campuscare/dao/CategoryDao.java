@@ -21,7 +21,7 @@ public class CategoryDao implements ICategoryDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-/*	public CategoryDao() {
+    public CategoryDao() {
 		
 	}
 	
@@ -29,7 +29,7 @@ public class CategoryDao implements ICategoryDao {
 		//super();
 		this.jdbcTemplate = jdbcTemplate;
 	}
-*/
+
 
 	@Override
 	public List<Category> getAllCategories() {

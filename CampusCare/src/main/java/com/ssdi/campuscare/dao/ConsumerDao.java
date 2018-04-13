@@ -20,6 +20,16 @@ public class ConsumerDao implements IConsumerDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+    public ConsumerDao() {
+		
+	}
+	
+	public ConsumerDao(JdbcTemplate jdbcTemplate) {
+		//super();
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	
 	@Override
 	public boolean findConsumerByUsername(String username) {
 		String sql = "SELECT count(1) FROM consumer where username = ?";

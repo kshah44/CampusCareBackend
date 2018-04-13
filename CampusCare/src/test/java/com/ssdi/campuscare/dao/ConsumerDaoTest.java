@@ -1,20 +1,21 @@
 package com.ssdi.campuscare.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import com.ssdi.campuscare.dao.ConsumerDao;
-import com.ssdi.campuscare.dao.ConsumerRowMapper;
 import com.ssdi.campuscare.model.Consumer;
 
-import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Tested;
 import mockit.Verifications;
@@ -23,6 +24,13 @@ import mockit.integration.junit4.JMockit;
 @RunWith(JMockit.class)
 @SpringBootTest
 public class ConsumerDaoTest {
+	private DataSource dataSource;
+	private static final String driverClassName = "com.mysql.jdbc.Driver";
+	private static final String url = "jdbc:mysql://localhost:3306/campuscaretest?useSSL=false";
+	private static final String dbUsername = "root";
+	private static final String dbPassword = "1003";
+
+	
 	@Injectable
 	private JdbcTemplate jdbcTemplate;
 
@@ -34,47 +42,86 @@ public class ConsumerDaoTest {
 
 	private Consumer consumer;
 
+	public DriverManagerDataSource getSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(url);
+		dataSource.setUsername(dbUsername);
+		dataSource.setPassword(dbPassword);
+		return dataSource;
+	}
+	
+	
 	@Test
-	public void testfindConsumerByUsername() {
+	public void testFindConsumerByUsername() {
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+
+		String sql1 = "delete from consumer where consumer_id <> ?";
+		jdbcTemplate.update(sql1,0);
 		
-		String sql1 = "delete from provider_category where provider_id <> ?";
-		int i = jdbcTemplate.update(sql1,0);
+		String sql2 = "insert into consumer (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jdbcTemplate.update(sql2);
 		
-		Consumer consumer = new Consumer();
-		consumer.setUserName("shashi");
-		String sql = "SELECT count(1) FROM consumer where username = ?";
-		int count = jdbcTemplate.queryForObject(sql, Integer.class, consumer.getUserName());
+		consumerDao = new ConsumerDao(jt);
 		
-		System.out.println("the number of rows" +count);
 		new Verifications() {
 			{
-				assertEquals(true, consumerDao.findConsumerByUsername(consumer.getUserName()));
+				assertEquals(true, consumerDao.findConsumerByUsername("shashi"));
 			}
 		};
 	}
 
 	@Test
 	public void testFindConsumerByEmail() {
-		Consumer consumer = new Consumer();
-		consumer.setEmail("hot@hotmail.com");
-		String sql = "SELECT count(1) FROM consumer where email = ?";
-		int count = jdbcTemplate.queryForObject(sql, Integer.class, consumer.getEmail());
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+
+		String sql1 = "delete from consumer where consumer_id <> ?";
+		jdbcTemplate.update(sql1,0);
+		
+		String sql2 = "insert into consumer (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jdbcTemplate.update(sql2);
+		
+		consumerDao = new ConsumerDao(jt);
+		
 		new Verifications() {
 			{
-				assertEquals(true, consumerDao.findConsumerByEmail(consumer.getEmail()));
+				assertEquals(true, consumerDao.findConsumerByEmail("shashi@gmail.com"));
 			}
 		};
-	}
+}
 
 	@Test
 	public void testGetAllConsumers() {
-		String sql = "select username, firstname, lastname, email, password from consumer";
-		rowMapper = new ConsumerRowMapper();
 		
-		List<Consumer> consumerList = jdbcTemplate.query(sql, rowMapper);
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+		
+		String sql1 = "delete from consumer where consumer_id <> ?";
+		jdbcTemplate.update(sql1,0);
+		
+		String sql2 = "insert into consumer (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jdbcTemplate.update(sql2);
+		
+		String sql3 = "insert into consumer (username, firstname, lastname, email, password) values ('kush','Kush','Shah', 'kush@gmail.com', 'Password222')";
+		jdbcTemplate.update(sql3);
+		
+		consumerDao = new ConsumerDao(jt);
+		List<Consumer> consumerList = new ArrayList<Consumer>();
+		consumerList = consumerDao.getAllConsumers();
+		//consumerList.add(new Consumer("shashi","Shashikant","Jaiswal", "shashi@gmail.com", "Password123"));
+		//consumerList.add(new Consumer("kush","Kush","Shah", "kush@gmail.com", "Password222"));
+		
+	
+		String a = consumerList.get(0).getFirstName();
+		String b = consumerList.get(1).getFirstName();
+		
 		new Verifications() {
 			{
-				assertEquals(consumerList, consumerDao.getAllConsumers());
+				
+				assertEquals("Shashikant", a);
+				assertEquals("Kush", b);
 			}
 		};
 	}

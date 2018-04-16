@@ -61,5 +61,10 @@ public class ProviderController {
 		return providerservice.createProvider(provider);
 
 	}
+	@RequestMapping(method = RequestMethod.POST, value = "/getproviderbycategory")
+	public List<Provider> getProviderByCategoryId(@RequestBody Category category) {
+		return providerservice.getProviderByCategoryId(category.getCategoryId());
+
+	}
 
 }

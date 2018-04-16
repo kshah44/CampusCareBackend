@@ -54,5 +54,10 @@ public class ProviderService implements IProviderService {
 		// TODO Auto-generated method stub
 		return providerdao.getProviderById(id);
 	}
+	@Override
+	public List<Provider> getProviderByCategoryId(int categoryId) {
+		
+		return providerdao.getProviderByCategory(categoryId);
+	}
 
 }

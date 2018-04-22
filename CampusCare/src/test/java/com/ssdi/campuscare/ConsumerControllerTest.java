@@ -1,7 +1,6 @@
 package com.ssdi.campuscare;
 
-import static
-org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
@@ -31,7 +30,7 @@ public class ConsumerControllerTest {
 	private ConsumerController consumerController;
 	
 	@Injectable
-	private IConsumerService consumerService;
+	private ConsumerService consumerService;
 	
 	private MockMvc mockMvc;
 	

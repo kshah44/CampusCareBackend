@@ -2,6 +2,7 @@ package com.ssdi.campuscare.service;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,13 @@ public class ProviderService implements IProviderService {
 	public List<Provider> getAllProviders() {
 		return providerdao.getAllProviders();
 	}
+	public JSONArray getAllProviderNames() {
+		return providerdao.getAllProviderNames();
+	}
+	public Provider providerProfile(String username) {
+		return providerdao.providerProfile(username);
+	}
+
 
 	@Override
 	public Provider verifyLogin(String username, String password) {
@@ -40,6 +48,11 @@ public class ProviderService implements IProviderService {
 			
 			
 		
+	}
+	@Override
+	public Provider getProviderById(int id) {
+		// TODO Auto-generated method stub
+		return providerdao.getProviderById(id);
 	}
 
 }

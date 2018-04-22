@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,6 +23,7 @@ import mockit.integration.junit4.JMockit;
 public class ConsumerDaoTest 
 {
 	@Injectable
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	@Injectable
@@ -36,7 +38,7 @@ public class ConsumerDaoTest
 	public void testfindConsumerByUsername()
 	{
 		Consumer consumer = new Consumer();
-		consumer.setUserName("username");
+		consumer.setUserName("bre");
 		String sql = "SELECT count(1) FROM consumer where username = ?";
 		int count = jdbcTemplate.queryForObject(sql, Integer.class, consumer.getUserName());
 		new Verifications()
@@ -48,7 +50,7 @@ public class ConsumerDaoTest
 	public void testFindConsumerByEmail()
 	{
 		Consumer consumer = new Consumer();
-		consumer.setEmail("hot@hotmail.com");
+		consumer.setEmail("bre@uncc.edu");
 		String sql = "SELECT count(1) FROM consumer where email = ?";
 		int count = jdbcTemplate.queryForObject(sql, Integer.class, consumer.getEmail());
 		new Verifications()

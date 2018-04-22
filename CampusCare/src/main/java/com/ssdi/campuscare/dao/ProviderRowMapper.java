@@ -9,6 +9,7 @@ public class ProviderRowMapper implements RowMapper<Provider> {
 
 	public Provider mapRow(ResultSet row, int rowNum) throws SQLException {
 		Provider provider = new Provider();
+		provider.setProviderId(row.getInt("provider_id"));
 		provider.setUserName(row.getString("username"));
 		provider.setFirstName(row.getString("firstname"));
 		provider.setLastName(row.getString("lastname"));
@@ -16,18 +17,6 @@ public class ProviderRowMapper implements RowMapper<Provider> {
 		provider.setPassword(row.getString("password"));
 		return provider;
 	}
-	@Override
-	public boolean equals(Object rhs) {
-		ProviderRowMapper rhs_actual = (ProviderRowMapper) rhs;
-		if(rhs_actual.getClass() == this.getClass())
-		{	
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-			
-	}
+	
 }
 

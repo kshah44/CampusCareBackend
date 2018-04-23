@@ -19,12 +19,10 @@ public class ProviderDao implements IProviderDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-    public ProviderDao() {
-		
-	}
+    public ProviderDao() {}
 	
-	public ProviderDao(JdbcTemplate jdbcTemplate) {
-		//super();
+	public ProviderDao(JdbcTemplate jdbcTemplate) 
+	{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 

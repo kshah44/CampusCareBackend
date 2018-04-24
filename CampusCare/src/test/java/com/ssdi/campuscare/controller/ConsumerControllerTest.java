@@ -81,7 +81,7 @@ public class ConsumerControllerTest {
 		consumer.setEmail("hot@hotmail.com");
 		consumer.setFirstName("Margeret");
 		consumer.setLastName("Spyro");
-		
+			
 		//This will execute after the connection is tested
 		new Expectations()
 		{{

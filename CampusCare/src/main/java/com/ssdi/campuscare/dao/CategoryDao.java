@@ -20,14 +20,24 @@ public class CategoryDao implements ICategoryDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+    public CategoryDao() {
+		
+	}
+	
+	public CategoryDao(JdbcTemplate jdbcTemplate) {
+		//super();
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 
 	@Override
 	public List<Category> getAllCategories() {
 
-		System.out.println("getAllCategories");
-
+		System.out.println("Inside CategoryDao : Inside getAllCategories method");
 		String sql = "select category_id, category_name from category";
 		RowMapper<Category> rowMapper = new CategoryRowMapper();
+		System.out.println(jdbcTemplate.getDataSource());
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}
 
@@ -65,4 +75,5 @@ public class CategoryDao implements ICategoryDao {
 		
 		return getProviderCategories(provider_id);
 	}
+
 }

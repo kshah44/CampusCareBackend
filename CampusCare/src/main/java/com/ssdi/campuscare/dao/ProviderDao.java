@@ -18,6 +18,16 @@ public class ProviderDao implements IProviderDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+    public ProviderDao() {
+		
+	}
+	
+	public ProviderDao(JdbcTemplate jdbcTemplate) {
+		//super();
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 
 	@Override
 	public boolean findProviderByUsername(String username) {

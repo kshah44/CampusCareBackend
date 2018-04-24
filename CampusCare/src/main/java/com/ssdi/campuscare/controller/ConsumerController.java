@@ -43,6 +43,13 @@ public class ConsumerController {
 		
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="/consumerId")
+	
+	public Consumer getConsumerById(@RequestBody Consumer consumer) {
+		return consumerservice.getConsumerById(consumer.getConsumerId());
+		
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, value="/createconsumer")
 	public Consumer createConsumer(@RequestBody Consumer consumer) {
 		return consumerservice.createConsumer(consumer);

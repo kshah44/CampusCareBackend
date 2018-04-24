@@ -20,6 +20,16 @@ public class ConsumerDao implements IConsumerDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+    public ConsumerDao() {
+		
+	}
+	
+	public ConsumerDao(JdbcTemplate jdbcTemplate) {
+		//super();
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	
 	@Override
 	public boolean findConsumerByUsername(String username) {
 		String sql = "SELECT count(1) FROM consumer where username = ?";
@@ -97,16 +107,27 @@ public class ConsumerDao implements IConsumerDao {
 	@Override
 	public JSONArray getAllConsumerNames() {
 		JSONArray arr = new JSONArray();
-		String sql = "SELECT concat(firstname,' ',lastname) as fullname from consumer";
+		String sql = "SELECT concat(firstname,' ',lastname) as fullname,email,userName,consumer_id from consumer";
 		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql);
 		for(Map res:result) {
 			JSONObject obj = new JSONObject();
 			obj.put("fullname", res.get("fullname"));
+			obj.put("email", res.get("email"));
+			obj.put("userName", res.get("userName"));
+			obj.put("consumerId",res.get("consumer_id"));
 			arr.put(obj);
 		}
 		
 		return arr;
 		
+	}
+
+	@Override
+	public Consumer getConsumerById(int id) {
+		String sql = "select * from consumer where consumer_id = ?";
+		RowMapper<Consumer> rowMapper = new ConsumerRowMapper();
+		Consumer consumer = jdbcTemplate.queryForObject(sql, rowMapper,id);
+		return consumer;
 	}
 	
 

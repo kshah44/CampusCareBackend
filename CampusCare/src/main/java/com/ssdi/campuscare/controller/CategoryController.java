@@ -42,6 +42,7 @@ public class CategoryController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/removeprovidercategory")
 	public List<Category> removeProviderCategory(@RequestBody String obj) {
+		System.out.println(obj);
 		JSONObject json = new JSONObject(obj);
 		return categoryservice.removeProviderCategory(Integer.parseInt((String) json.get("providerId")),
 				Integer.parseInt((String) json.get("categoryId")));

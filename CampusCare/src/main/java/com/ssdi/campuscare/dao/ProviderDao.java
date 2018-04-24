@@ -126,4 +126,12 @@ public class ProviderDao implements IProviderDao {
 		return provider;
 	}
 
+	@Override
+	public List<Provider> getProviderByCategory(int categoryId) {
+		String sql = "select provider.* from provider_category INNER JOIN provider ON provider_category.provider_id = provider.provider_id where provider_category.category_id = ?";
+		
+		RowMapper<Provider> rowMapper = new ProviderRowMapper();
+		return this.jdbcTemplate.query(sql, rowMapper , categoryId);
+	}
+
 }

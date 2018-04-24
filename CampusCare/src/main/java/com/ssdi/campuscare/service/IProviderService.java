@@ -10,5 +10,6 @@ public interface IProviderService {
 	public Provider verifyLogin(String username, String password);
 	public Provider createProvider(Provider provider);
 	public Provider getProviderById(int id);
+	public List<Provider> getProviderByCategoryId(int categoryId);
 
 }

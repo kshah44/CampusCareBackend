@@ -1,11 +1,13 @@
 package com.ssdi.campuscare.service;
 
 import java.util.List;
+
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ssdi.campuscare.dao.*;
-import com.ssdi.campuscare.model.*;
+
+import com.ssdi.campuscare.dao.IRequestDao;
+import com.ssdi.campuscare.model.Request;
 
 @Service
 public class RequestService implements IRequestService
@@ -20,13 +22,13 @@ public class RequestService implements IRequestService
 	}
 
 	@Override
-	public List<Request> getProviderRequest(int provider_id) 
+	public JSONArray getProviderRequest(int provider_id) 
 	{
 		return requestDao.getProviderRequest(provider_id);
 	}
 
 	@Override
-	public List<Request> getConsumerRequest(int consumer_id) 
+	public JSONArray getConsumerRequest(int consumer_id) 
 	{
 		return requestDao.getConsumerRequest(consumer_id);
 	}
@@ -38,9 +40,22 @@ public class RequestService implements IRequestService
 	}
 
 	@Override
-	public List<Request> cancelRequest(int consumer_id, int provider_id, int category_id) 
+	public JSONArray cancelRequest(int consumer_id, int provider_id, int category_id) 
 	{
 		return requestDao.cancelRequest(consumer_id, provider_id, category_id);
 	}
 
+	@Override
+	public JSONArray ProviderAcceptRequest(int request_id, int provider_id) 
+	{
+		return requestDao.ProviderAcceptRequest(request_id, provider_id);
+	}
+
+	@Override
+	public JSONArray ProviderRejectRequest(int request_id, int provider_id) 
+	{
+		return requestDao.ProviderRejectRequest(request_id, provider_id);
+	}
+
+	
 }

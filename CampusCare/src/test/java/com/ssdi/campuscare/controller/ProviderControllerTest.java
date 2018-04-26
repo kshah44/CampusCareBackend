@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssdi.campuscare.controller.ProviderController;
+import com.ssdi.campuscare.model.Category;
 import com.ssdi.campuscare.model.Provider;
 import com.ssdi.campuscare.service.ProviderService;
 
@@ -73,6 +74,7 @@ public class ProviderControllerTest {
 
 	@Test
 	public void testCreateProvider() {
+
 		Provider provider = new Provider();
 		//Given the username is username, the password is password, the email is hot@hotmail.com, and the name is Margeret Spyro
 		provider.setUserName("username");
@@ -100,5 +102,60 @@ public class ProviderControllerTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void testGetProviderByCategory() {
+		Category cat = new Category();
+		cat.setCategoryId(1);
+		
+		
+		//This will execute after the connection is tested
+		new Expectations()
+		{{
+			providerService.getProviderByCategoryId(cat.getCategoryId());
+		}};
+		
+		//Testing the connection with this url
+		try
+		{
+			mockMvc.perform(post("/getproviderbycategory")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(cat)))
+			.andExpect(status().isOk());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testGetProviderById() 
+	{
+		int providerId = 1;
+		Provider provider = new Provider();
+		provider.setProviderId(providerId);
+		
+		
+		
+		
+		//This will execute after the connection is tested
+		new Expectations()
+		{{
+			providerService.getProviderById(provider.getProviderId());
+		}};
+		
+		//Testing the connection with this url
+		try
+		{
+			mockMvc.perform(post("/providerid")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(provider)))
+			.andExpect(status().isOk());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 
 }

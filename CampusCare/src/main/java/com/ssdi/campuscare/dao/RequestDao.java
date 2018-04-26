@@ -101,7 +101,13 @@ public class RequestDao implements IRequestDao {
 		jdbcTemplate.update(sql, consumer_id, provider_id, category_id);
 		return getConsumerRequest(consumer_id);
 	}
-	
+
+	public JSONArray ProviderUpdateRequestStatus(int request_id, int provider_id, String status) {
+		String sql = "update request set request_status = ? where request_id = ?";
+		jdbcTemplate.update(sql, status, request_id);
+		return getProviderRequest(provider_id);
+	}
+	/*
 	@Override
 	public JSONArray ProviderAcceptRequest(int request_id, int provider_id) {
 		String sql = "update request set request_status = 'Accepted' where request_id = ?";
@@ -116,5 +122,14 @@ public class RequestDao implements IRequestDao {
 		return getProviderRequest(provider_id);
 	}
 
+	@Override
+	public JSONArray ProviderCompleteRequest(int request_id, int provider_id) {
+		String sql = "update request set request_status = 'Completed' where request_id = ?";
+		jdbcTemplate.update(sql, request_id);
+		return getProviderRequest(provider_id);
+	}
+	*/
+
+	
 
 }

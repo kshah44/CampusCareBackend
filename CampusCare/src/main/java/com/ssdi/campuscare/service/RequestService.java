@@ -46,16 +46,23 @@ public class RequestService implements IRequestService
 	}
 
 	@Override
-	public JSONArray ProviderAcceptRequest(int request_id, int provider_id) 
+	public JSONArray ProviderUpdateRequestStatus(int request_id, int provider_id, String status) 
 	{
-		return requestDao.ProviderAcceptRequest(request_id, provider_id);
+		return requestDao.ProviderUpdateRequestStatus(request_id, provider_id, status);
 	}
 
+	/*
 	@Override
 	public JSONArray ProviderRejectRequest(int request_id, int provider_id) 
 	{
 		return requestDao.ProviderRejectRequest(request_id, provider_id);
 	}
 
+	@Override
+	public JSONArray ProviderCompleteRequest(int request_id, int provider_id) 
+	{
+		return requestDao.ProviderCompleteRequest(request_id, provider_id);
+	}
+    */
 	
 }

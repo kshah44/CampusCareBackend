@@ -54,18 +54,27 @@ public class RequestController
 				Integer.parseInt((String) json.get("categoryId"))).toString();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/acceptrequest")
-	public String ProviderAcceptRequest(@RequestBody String obj) {
+	@RequestMapping(method = RequestMethod.POST, value = "/updatestatus")
+	public String ProviderUpdateRequestStatus(@RequestBody String obj) {
 		JSONObject json = new JSONObject(obj);
-		return requestService.ProviderAcceptRequest(Integer.parseInt((String) json.get("requestId")),
-				Integer.parseInt((String) json.get("providerId"))).toString();
+		return requestService.ProviderUpdateRequestStatus(Integer.parseInt((String) json.get("requestId")),
+				Integer.parseInt((String) json.get("providerId")), (String) json.get("status")).toString();
 	}
 	
+	/*
 	@RequestMapping(method = RequestMethod.POST, value = "/rejectrequest")
 	public String ProviderRejectRequest(@RequestBody String obj) {
 		JSONObject json = new JSONObject(obj);
 		return requestService.ProviderRejectRequest(Integer.parseInt((String) json.get("requestId")),
 				Integer.parseInt((String) json.get("providerId"))).toString();
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/completerequest")
+	public String ProviderCompleteRequest(@RequestBody String obj) {
+		JSONObject json = new JSONObject(obj);
+		return requestService.ProviderCompleteRequest(Integer.parseInt((String) json.get("requestId")),
+				Integer.parseInt((String) json.get("providerId"))).toString();
+	}
+	*/
 
 }

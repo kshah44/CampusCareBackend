@@ -80,11 +80,10 @@ public class RequestDao implements IRequestDao {
 	}
 
 	@Override
-	public Request createRequest(Request service) {
-		String sql = "INSERT INTO request (consumer_id, provider_id, category_id, request_status) values (?, ?, ?, ?)";
-		jdbcTemplate.update(sql, service.getConsumerId(), service.getProviderId(), service.getCategoryId(),
-				service.getStatus());
-		return service;
+	public Request createRequest(Request request) {
+		String sql = "INSERT INTO request (consumer_id, provider_id, category_id) values (?, ?, ?)";
+		jdbcTemplate.update(sql, request.getConsumerId(), request.getProviderId(), request.getCategoryId());
+		return request;
 	}
 
 	/*

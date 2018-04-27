@@ -66,7 +66,7 @@ public class RequestDao implements IRequestDao {
 		JSONArray arr = new JSONArray();
 		String sql = "select a.request_id, concat(b.firstname,' ',b.lastname) as fullname, c.category_name, a.request_status\r\n"
 				+ "from request a, provider b, category c\r\n" + "where a.provider_id = b.provider_id\r\n"
-				+ "and a.category_id = c.category_id\r\n" + "and a.consumer_id = ?";
+				+ "and a.category_id = c.category_id\r\n" + "and a.consumer_id = ? order by a.request_id desc";
 		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, consumer_id);
 		for (Map res : result) {
 			JSONObject obj = new JSONObject();

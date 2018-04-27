@@ -104,13 +104,13 @@ public class ProviderServiceTest {
 
 		// When: When the getAllProviderNames method is invoked from Service layer, it should
 		// internally called getAllProviderNames method of ProviderDAO.
-		providerService.getAllProviderNames();
+		JSONArray expected_arr = providerService.getAllProviderNames();
 
 		new Verifications() {
 			{
-				assertEquals(2, arr.length());
-				assertEquals("shahkush18",  ((JSONObject) arr.get(0)).get("userName"));
-				assertEquals("heli18",  ((JSONObject) arr.get(1)).get("userName"));
+				assertEquals(2, expected_arr.length());
+				assertEquals("shahkush18",  ((JSONObject) expected_arr.get(0)).get("userName"));
+				assertEquals("heli18",  ((JSONObject) expected_arr.get(1)).get("userName"));
 			}
 		};
 	}
@@ -131,15 +131,15 @@ public class ProviderServiceTest {
 
 		// When: When the getAllProviderNames method is invoked from Service layer, it should
 		// internally called getAllProviderNames method of ProviderDAO.
-		providerService.getAllProviders();
+		List<Provider> expected_providerList = providerService.getAllProviders();
 
 		new Verifications() {
 			{
-				assertEquals(2, providerList.size());
-				assertEquals("Shashi", providerList.get(0).getFirstName());
-				assertEquals("Jaiswal", providerList.get(0).getLastName());
-				assertEquals("Kush", providerList.get(1).getFirstName());
-				assertEquals("Shah", providerList.get(1).getLastName());
+				assertEquals(2, expected_providerList.size());
+				assertEquals("Shashi", expected_providerList.get(0).getFirstName());
+				assertEquals("Jaiswal", expected_providerList.get(0).getLastName());
+				assertEquals("Kush", expected_providerList.get(1).getFirstName());
+				assertEquals("Shah", expected_providerList.get(1).getLastName());
 			}
 		};
 	}

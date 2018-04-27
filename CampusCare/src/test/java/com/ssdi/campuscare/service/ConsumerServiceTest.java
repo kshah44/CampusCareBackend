@@ -101,13 +101,13 @@ public class ConsumerServiceTest {
 
 		// When: When the getAllConsumerNames method is invoked from Service layer, it should
 		// internally called getAllConsumerNames method of ConsumerDAO.
-		consumerService.getAllConsumerNames();
+		JSONArray expected_arr = consumerService.getAllConsumerNames();
 
 		new Verifications() {
 			{
-				assertEquals(2, arr.length());
-				assertEquals("shahkush18",  ((JSONObject) arr.get(0)).get("userName"));
-				assertEquals("heli18",  ((JSONObject) arr.get(1)).get("userName"));
+				assertEquals(2, expected_arr.length());
+				assertEquals("shahkush18",  ((JSONObject) expected_arr.get(0)).get("userName"));
+				assertEquals("heli18",  ((JSONObject) expected_arr.get(1)).get("userName"));
 			}
 		};
 	}
@@ -128,15 +128,15 @@ public class ConsumerServiceTest {
 
 		// When: When the getAllConsumerNames method is invoked from Service layer, it should
 		// internally called getAllConsumerNames method of ConsumerDAO.
-		consumerService.getAllConsumers();
+		List<Consumer> expected_consumerList = consumerService.getAllConsumers();
 
 		new Verifications() {
 			{
-				assertEquals(2, consumerList.size());
-				assertEquals("Shashi", consumerList.get(0).getFirstName());
-				assertEquals("Jaiswal", consumerList.get(0).getLastName());
-				assertEquals("Kush", consumerList.get(1).getFirstName());
-				assertEquals("Shah", consumerList.get(1).getLastName());
+				assertEquals(2, expected_consumerList.size());
+				assertEquals("Shashi", expected_consumerList.get(0).getFirstName());
+				assertEquals("Jaiswal", expected_consumerList.get(0).getLastName());
+				assertEquals("Kush", expected_consumerList.get(1).getFirstName());
+				assertEquals("Shah", expected_consumerList.get(1).getLastName());
 			}
 		};
 	}
@@ -155,13 +155,13 @@ public class ConsumerServiceTest {
 
 		// When: When the consumerProfile method is invoked from Service layer, it should
 		// internally called consumerProfile method of ConsumerDAO.
-		consumerService.consumerProfile(consumer.getUserName());
+		Consumer expectedConsumer = consumerService.consumerProfile(consumer.getUserName());
 
 		new Verifications() {
 			{
-				assertEquals("Shashi", consumer.getFirstName());
-				assertEquals("Jaiswal", consumer.getLastName());
-				assertEquals("shashi@gmail.com", consumer.getEmail());
+				assertEquals("Shashi", expectedConsumer.getFirstName());
+				assertEquals("Jaiswal", expectedConsumer.getLastName());
+				assertEquals("shashi@gmail.com", expectedConsumer.getEmail());
 			}
 		};
 	}

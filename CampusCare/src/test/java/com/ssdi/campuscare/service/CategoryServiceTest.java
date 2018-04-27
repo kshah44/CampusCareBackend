@@ -35,22 +35,22 @@ public class CategoryServiceTest {
 
 		Category category1 = new Category(1, "Sports");
 		Category category2 = new Category(2, "Painting");
-		List<Category> expectedCategories = new ArrayList<Category>();
-		expectedCategories.add(category1);
-		expectedCategories.add(category2);
+		List<Category> returnedCategories = new ArrayList<Category>();
+		returnedCategories.add(category1);
+		returnedCategories.add(category2);
 
 		// Expectation: The getProviderCategories method of Category DAO should get
 		// invoked
 		new Expectations() {
 			{
 				categoryDao.getAllCategories();
-				result = expectedCategories;
+				result = returnedCategories; 
 			}
 		};
 
 		// When: When the getProviderCategories method is invoked from Service layer, it
 		// should internally called getProviderCategories method of Category DAO.
-		categoryService.getAllCategories();
+		List<Category> expectedCategories = categoryService.getAllCategories();
 
 		new Verifications() {
 			{
@@ -90,8 +90,8 @@ public class CategoryServiceTest {
 		Provider provider = new Provider();
 		provider.setProviderId(1);
 
-		List<Category> expectedCategories = new ArrayList<Category>();
-		expectedCategories.add(category);
+		List<Category> returnedCategories = new ArrayList<Category>();
+		returnedCategories.add(category);
 			
 
 		// Expectation: The addProviderCategory method of Category DAO should get
@@ -99,13 +99,13 @@ public class CategoryServiceTest {
 		new Expectations() {
 			{
 				categoryDao.addProviderCategory(provider.getProviderId(), category.getCategoryId());
-				result = expectedCategories;
+				result = returnedCategories;
 			}
 		};
 
 		// When: When the addProviderCategory method is invoked from Service layer, it
 		// should internally called addProviderCategory method of Category DAO.
-		categoryService.addProviderCategory(provider.getProviderId(), category.getCategoryId());
+		List<Category> expectedCategories = categoryService.addProviderCategory(provider.getProviderId(), category.getCategoryId());
 
 		new Verifications() {
 			{
@@ -128,9 +128,9 @@ public class CategoryServiceTest {
 			Provider provider = new Provider();
 			provider.setProviderId(2);
 
-			List<Category> expectedCategories = new ArrayList<Category>();
-			expectedCategories.add(category2);
-			expectedCategories.add(category3);
+			List<Category> returnedCategories = new ArrayList<Category>();
+			returnedCategories.add(category2);
+			returnedCategories.add(category3);
 				
 
 			// Expectation: The addProviderCategory method of Category DAO should get
@@ -138,13 +138,13 @@ public class CategoryServiceTest {
 			new Expectations() {
 				{
 					categoryDao.removeProviderCategory(provider.getProviderId(), category1.getCategoryId());
-					result = expectedCategories;
+					result = returnedCategories;
 				}
 			};
 
 			// When: When the addProviderCategory method is invoked from Service layer, it
 			// should internally called addProviderCategory method of Category DAO.
-			categoryService.removeProviderCategory(provider.getProviderId(), category1.getCategoryId());
+			List<Category> expectedCategories = categoryService.removeProviderCategory(provider.getProviderId(), category1.getCategoryId());
 
 			new Verifications() {
 				{

@@ -28,7 +28,7 @@ public class ConsumerDaoTest {
 	private static final String driverClassName = "com.mysql.jdbc.Driver";
 	private static final String url = "jdbc:mysql://localhost:3306/campuscaretest?useSSL=false";
 	private static final String dbUsername = "root";
-	private static final String dbPassword = "root";
+	private static final String dbPassword = "1003";
 
 	
 	@Injectable
@@ -58,10 +58,10 @@ public class ConsumerDaoTest {
 		JdbcTemplate jt = new JdbcTemplate(ds);
 
 		String sql1 = "delete from consumer where consumer_id <> ?";
-		jdbcTemplate.update(sql1,0);
+		jt.update(sql1,0);
 		
-		String sql2 = "insert into consumer (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
-		jdbcTemplate.update(sql2);
+		String sql2 = "insert into consumer (consumer_id, username, firstname, lastname, email, password) values (1, 'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jt.update(sql2);
 		
 		consumerDao = new ConsumerDao(jt);
 		
@@ -78,10 +78,10 @@ public class ConsumerDaoTest {
 		JdbcTemplate jt = new JdbcTemplate(ds);
 
 		String sql1 = "delete from consumer where consumer_id <> ?";
-		jdbcTemplate.update(sql1,0);
+		jt.update(sql1,0);
 		
-		String sql2 = "insert into consumer (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
-		jdbcTemplate.update(sql2);
+		String sql2 = "insert into consumer (consumer_id, username, firstname, lastname, email, password) values (1, 'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jt.update(sql2);
 		
 		consumerDao = new ConsumerDao(jt);
 		
@@ -99,13 +99,13 @@ public class ConsumerDaoTest {
 		JdbcTemplate jt = new JdbcTemplate(ds);
 		
 		String sql1 = "delete from consumer where consumer_id <> ?";
-		jdbcTemplate.update(sql1,0);
+		jt.update(sql1,0);
 		
-		String sql2 = "insert into consumer (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
-		jdbcTemplate.update(sql2);
+		String sql2 = "insert into consumer (consumer_id, username, firstname, lastname, email, password) values (1, 'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jt.update(sql2);
 		
-		String sql3 = "insert into consumer (username, firstname, lastname, email, password) values ('kush','Kush','Shah', 'kush@gmail.com', 'Password222')";
-		jdbcTemplate.update(sql3);
+		String sql3 = "insert into consumer (consumer_id, username, firstname, lastname, email, password) values (2, 'kush','Kush','Shah', 'kush@gmail.com', 'Password222')";
+		jt.update(sql3);
 		
 		consumerDao = new ConsumerDao(jt);
 		List<Consumer> consumerList = new ArrayList<Consumer>();
@@ -119,7 +119,6 @@ public class ConsumerDaoTest {
 		
 		new Verifications() {
 			{
-				
 				assertEquals("Shashikant", a);
 				assertEquals("Kush", b);
 			}

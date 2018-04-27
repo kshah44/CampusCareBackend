@@ -29,7 +29,7 @@ public class ProviderDaoTest
 	private static final String driverClassName = "com.mysql.jdbc.Driver";
 	private static final String url = "jdbc:mysql://localhost:3306/campuscaretest?useSSL=false";
 	private static final String dbUsername = "root";
-	private static final String dbPassword = "root";
+	private static final String dbPassword = "1003";
 
 	@Injectable
 	private JdbcTemplate jdbcTemplate;
@@ -61,7 +61,7 @@ public class ProviderDaoTest
 		String sql1 = "delete from provider where provider_id <> ?";
 		jt.update(sql1,0);
 		
-		String sql2 = "insert into provider (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		String sql2 = "insert into provider (provider_id, username, firstname, lastname, email, password) values (1, 'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
 		jt.update(sql2);
 		
 		providerDao = new ProviderDao(jt);
@@ -83,7 +83,7 @@ public class ProviderDaoTest
 		String sql1 = "delete from provider where provider_id <> ?";
 		jt.update(sql1,0);
 		
-		String sql2 = "insert into provider (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		String sql2 = "insert into provider (provider_id, username, firstname, lastname, email, password) values (1, 'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
 		jt.update(sql2);
 		
 		providerDao = new ProviderDao(jt);
@@ -104,10 +104,10 @@ public class ProviderDaoTest
 		String sql1 = "delete from provider where provider_id <> ?";
 		jt.update(sql1,0);
 		
-		String sql2 = "insert into provider (username, firstname, lastname, email, password) values ('shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		String sql2 = "insert into provider (provider_id, username, firstname, lastname, email, password) values (1,'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
 		jt.update(sql2);
 		
-		String sql3 = "insert into provider (username, firstname, lastname, email, password) values ('kush','Kush','Shah', 'kush@gmail.com', 'Password222')";
+		String sql3 = "insert into provider (provider_id, username, firstname, lastname, email, password) values (2,'kush','Kush','Shah', 'kush@gmail.com', 'Password222')";
 		jt.update(sql3);
 		
 		providerDao = new ProviderDao(jt);

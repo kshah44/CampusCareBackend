@@ -184,15 +184,16 @@ public class RequestDaoTest {
 			{
 				assertEquals(2, resultArray.length());
 
-				assertEquals(1, resultArray.getJSONObject(0).getInt("requestId"));
+				assertEquals(2, resultArray.getJSONObject(0).getInt("requestId"));
 				assertEquals("John Doe", resultArray.getJSONObject(0).getString("fullname"));
-				assertEquals("Computers", resultArray.getJSONObject(0).getString("categoryName"));
-				assertEquals("Pending", resultArray.getJSONObject(0).getString("status"));
-
-				assertEquals(2, resultArray.getJSONObject(1).getInt("requestId"));
+				assertEquals("Academics", resultArray.getJSONObject(0).getString("categoryName"));
+				assertEquals("Accepted", resultArray.getJSONObject(0).getString("status"));
+				
+				assertEquals(1, resultArray.getJSONObject(1).getInt("requestId"));
 				assertEquals("John Doe", resultArray.getJSONObject(1).getString("fullname"));
-				assertEquals("Academics", resultArray.getJSONObject(1).getString("categoryName"));
-				assertEquals("Accepted", resultArray.getJSONObject(1).getString("status"));
+				assertEquals("Computers", resultArray.getJSONObject(1).getString("categoryName"));
+				assertEquals("Pending", resultArray.getJSONObject(1).getString("status"));
+
 
 			}
 		};

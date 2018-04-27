@@ -24,10 +24,10 @@ public class RequestController
 	@Autowired
 	private RequestService requestService;
 
-	@RequestMapping("/requests")
-	public List<Request> getAllRequests() {
-		return requestService.getAllRequests();
-	}
+//	@RequestMapping("/requests")
+//	public List<Request> getAllRequests() {
+//		return requestService.getAllRequests();
+//	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/providerrequests")
 	public String getProviderRequests(@RequestBody Provider provider) {
@@ -47,11 +47,10 @@ public class RequestController
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/cancelrequest")
-	public String cancelRequest(@RequestBody String obj) {
+	public String ConsumerUpdateRequestStatus(@RequestBody String obj) {
 		JSONObject json = new JSONObject(obj);
-		return requestService.cancelRequest((Integer.parseInt((String) json.get("consumerId"))),
-				(Integer.parseInt((String) json.get("providerId"))),
-				Integer.parseInt((String) json.get("categoryId"))).toString();
+		return requestService.ConsumerUpdateRequestStatus(Integer.parseInt((String) json.get("requestId")),
+				Integer.parseInt((String) json.get("consumerId")), (String) json.get("status")).toString();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/updatestatus")

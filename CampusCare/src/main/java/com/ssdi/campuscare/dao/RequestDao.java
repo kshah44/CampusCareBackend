@@ -24,12 +24,12 @@ public class RequestDao implements IRequestDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Override
-	public List<Request> getAllRequests() {
-		String sql = "select * from request";
-		RowMapper<Request> rowMapper = new RequestRowMapper();
-		return this.jdbcTemplate.query(sql, rowMapper);
-	}
+//	@Override
+//	public List<Request> getAllRequests() {
+//		String sql = "select * from request";
+//		RowMapper<Request> rowMapper = new RequestRowMapper();
+//		return this.jdbcTemplate.query(sql, rowMapper);
+//	}
 
 	/*
 	 * @Override public List<Request> getProviderRequest(int provider_id) { String
@@ -96,12 +96,12 @@ public class RequestDao implements IRequestDao {
 	}
 	*/
 	@Override
-	public JSONArray cancelRequest(int consumer_id, int provider_id, int category_id) {
-		String sql = "update request set request_status = 'Cancelled' where consumer_id = ? and provider_id = ? and category_id = ?";
-		jdbcTemplate.update(sql, consumer_id, provider_id, category_id);
+	public JSONArray ConsumerUpdateRequestStatus (int request_id, int consumer_id, String status) {
+		String sql = "update request set request_status = ? where request_id = ? ";
+		jdbcTemplate.update(sql, status, request_id);
 		return getConsumerRequest(consumer_id);
 	}
-
+	
 	public JSONArray ProviderUpdateRequestStatus(int request_id, int provider_id, String status) {
 		String sql = "update request set request_status = ? where request_id = ?";
 		jdbcTemplate.update(sql, status, request_id);

@@ -15,11 +15,11 @@ public class RequestService implements IRequestService
 	@Autowired
 	IRequestDao requestDao;
 
-	@Override
-	public List<Request> getAllRequests() 
-	{
-		return requestDao.getAllRequests();
-	}
+//	@Override
+//	public List<Request> getAllRequests() 
+//	{
+//		return requestDao.getAllRequests();
+//	}
 
 	@Override
 	public JSONArray getProviderRequest(int provider_id) 
@@ -40,9 +40,9 @@ public class RequestService implements IRequestService
 	}
 
 	@Override
-	public JSONArray cancelRequest(int consumer_id, int provider_id, int category_id) 
+	public JSONArray ConsumerUpdateRequestStatus (int request_id, int consumer_id, String status) 
 	{
-		return requestDao.cancelRequest(consumer_id, provider_id, category_id);
+		return requestDao.ConsumerUpdateRequestStatus(request_id, consumer_id, status);
 	}
 
 	@Override

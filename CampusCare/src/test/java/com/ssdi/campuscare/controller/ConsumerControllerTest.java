@@ -101,5 +101,34 @@ public class ConsumerControllerTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void testGetConsumerById() {
+		Consumer consumer = new Consumer();
+		consumer.setConsumerId(1);
+		consumer.setUserName("username");
+		consumer.setPassword("password");
+		consumer.setEmail("hot@hotmail.com");
+		consumer.setFirstName("Margeret");
+		consumer.setLastName("Spyro");
+			
+		//This will execute after the connection is tested
+		new Expectations()
+		{{
+			consumerService.getConsumerById(consumer.getConsumerId()); result = consumer;
+		}};
+		
+		//Testing the connection with this url
+		try
+		{
+			mockMvc.perform(post("/consumerId")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(consumer)))
+			.andExpect(status().isOk());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 }

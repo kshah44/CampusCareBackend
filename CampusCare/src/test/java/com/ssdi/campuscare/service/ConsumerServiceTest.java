@@ -166,5 +166,30 @@ public class ConsumerServiceTest {
 		};
 	}
 	
+	@Test
+	public void testConsumerById() {
+		Consumer consumer = new Consumer(1, "shahkush18", "Kush","Shah", "kshah44@uncc.edu", "password");
+		
+		
+		// Expectation: The consumerProfile method of Consumer DAO should get invoked
+		new Expectations() {
+			{
+				consumerDao.getConsumerById(consumer.getConsumerId()); result = consumer;
+			}
+		};
+
+		// When: When the consumerProfile method is invoked from Service layer, it should
+		// internally called consumerProfile method of ConsumerDAO.
+		Consumer returned_consumer = consumerService.getConsumerById(consumer.getConsumerId());
+
+		new Verifications() {
+			{
+				assertEquals("Kush", returned_consumer.getFirstName());
+				assertEquals("Shah", returned_consumer.getLastName());
+				assertEquals("kshah44@uncc.edu", returned_consumer.getEmail());
+			}
+		};
+	}
+	
 
 }

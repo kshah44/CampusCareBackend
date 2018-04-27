@@ -17,4 +17,6 @@ public interface IProvider {
 	public String getPassword();
 	public void setPassword(String password);
 	
+	
+	
 }

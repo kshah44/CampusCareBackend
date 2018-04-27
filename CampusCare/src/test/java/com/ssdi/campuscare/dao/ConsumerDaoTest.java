@@ -28,7 +28,7 @@ public class ConsumerDaoTest {
 	private static final String driverClassName = "com.mysql.jdbc.Driver";
 	private static final String url = "jdbc:mysql://localhost:3306/campuscaretest?useSSL=false";
 	private static final String dbUsername = "root";
-	private static final String dbPassword = "1003";
+	private static final String dbPassword = "root";
 
 	
 	@Injectable
@@ -158,5 +158,26 @@ public class ConsumerDaoTest {
 				assertEquals(consumer, consumerDao.createConsumer(consumer));
 			}
 		};
-}
+	}
+	@Test
+	public void testFindConsumerById() {
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+
+		String sql1 = "delete from consumer where consumer_id <> ?";
+		jt.update(sql1,0);
+		
+		String sql2 = "insert into consumer(consumer_id,username, firstname, lastname, email, password) values (1,'shahkush18','Kush','Shah', 'kshah44@uncc.edu', 'Password123')";
+		jt.update(sql2);
+		
+		Consumer consumer = new Consumer(1,"shahkush18","Kush","Shah","kshah44@uncc.edu","Password123");
+		
+		consumerDao = new ConsumerDao(jt);
+		
+		new Verifications() {
+			{
+				assertEquals(consumer, consumerDao.getConsumerById(1));
+			}
+		};
+	}
 }

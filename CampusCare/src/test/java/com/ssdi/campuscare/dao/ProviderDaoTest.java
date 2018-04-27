@@ -29,7 +29,7 @@ public class ProviderDaoTest
 	private static final String driverClassName = "com.mysql.jdbc.Driver";
 	private static final String url = "jdbc:mysql://localhost:3306/campuscaretest?useSSL=false";
 	private static final String dbUsername = "root";
-	private static final String dbPassword = "1003";
+	private static final String dbPassword = "root";
 
 	@Injectable
 	private JdbcTemplate jdbcTemplate;
@@ -161,6 +161,115 @@ public class ProviderDaoTest
 		{{
 			assertEquals(provider, providerDao.createProvider(provider));
 		}};
+	}
+	@Test
+	public void testFindProviderById() {
+		
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+
+		String sql1 = "delete from provider where provider_id <> ?";
+		jt.update(sql1,0);
+		
+		String sql2 = "insert into provider (provider_id,username, firstname, lastname, email, password) values (1,'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jt.update(sql2);
+		
+		providerDao = new ProviderDao(jt);
+		
+		Provider returned_provider = providerDao.getProviderById(1);
+		
+		new Verifications() {
+			{
+				assertEquals(1,returned_provider.getProviderId());
+				assertEquals("shashi",returned_provider.getUserName());
+				assertEquals("Shashikant",returned_provider.getFirstName());
+				assertEquals("Jaiswal",returned_provider.getLastName());
+				assertEquals("shashi@gmail.com",returned_provider.getEmail());
+				assertEquals("Password123",returned_provider.getPassword());
+				
+				
+			}
+		};
+	}	
+	@Test
+	public void testGetProviderById() {
+		
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+
+		String sql1 = "delete from provider where provider_id <> ?";
+		jt.update(sql1,0);
+		
+		String sql2 = "insert into provider (provider_id,username, firstname, lastname, email, password) values (1,'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jt.update(sql2);
+		
+		providerDao = new ProviderDao(jt);
+		
+		Provider returned_provider = providerDao.getProviderById(1);
+		
+		new Verifications() {
+			{
+				assertEquals(1,returned_provider.getProviderId());
+				assertEquals("shashi",returned_provider.getUserName());
+				assertEquals("Shashikant",returned_provider.getFirstName());
+				assertEquals("Jaiswal",returned_provider.getLastName());
+				assertEquals("shashi@gmail.com",returned_provider.getEmail());
+				assertEquals("Password123",returned_provider.getPassword());
+				
+				
+			}
+		};
+	}
+	@Test
+	public void testGetProviderByCategory() {
+		
+		DataSource ds= getSource();
+		JdbcTemplate jt = new JdbcTemplate(ds);
+
+		String sql1 = "delete from provider where provider_id <> ?";
+		jt.update(sql1,0);
+		
+		String sql2 = "delete from category where category_id <> ?";
+		jt.update(sql2,0);
+		
+		String sql3 = "delete from provider_category where provider_id <> ?";
+		jt.update(sql3,0);
+		
+		String sql7= "insert into provider (provider_id,username, firstname, lastname, email, password) values (1,'shahkush18','Kush','Shah', 'kshah44@uncc.edu', '1234')";
+		jt.update(sql7);
+		
+		String sql4 = "insert into provider (provider_id,username, firstname, lastname, email, password) values (2,'shashi','Shashikant','Jaiswal', 'shashi@gmail.com', 'Password123')";
+		jt.update(sql4);
+		
+		String sql5 = "insert into category(category_id,category_name) values(1,'Music')";
+		jt.update(sql5);
+		
+		String sql6 = "insert into provider_category (category_id,provider_id) values(1,1)";
+		jt.update(sql6);
+		
+		String sql8 = "insert into provider_category (category_id,provider_id) values(1,2)";
+		jt.update(sql8);
+		
+		providerDao = new ProviderDao(jt);
+		
+		List<Provider> returned_list = providerDao.getProviderByCategory(1);
+		
+		new Verifications() {
+			{
+				assertEquals(2,returned_list.size());
+				assertEquals("shahkush18",returned_list.get(0).getUserName());
+				assertEquals("Kush",returned_list.get(0).getFirstName());
+				assertEquals("Shah",returned_list.get(0).getLastName());
+				assertEquals(1,returned_list.get(0).getProviderId());
+				assertEquals("shashi",returned_list.get(1).getUserName());
+				assertEquals("Shashikant",returned_list.get(1).getFirstName());
+				assertEquals("Jaiswal",returned_list.get(1).getLastName());
+				assertEquals(2,returned_list.get(1).getProviderId());
+				
+			
+				
+			}
+		};
 	}
 	
 }

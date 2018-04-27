@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ssdi.campuscare.dao.IProviderDao;
+import com.ssdi.campuscare.model.Category;
 import com.ssdi.campuscare.model.Provider;
 
 import mockit.Expectations;
@@ -26,6 +27,8 @@ public class ProviderServiceTest {
 
 	@Injectable
 	private IProviderDao providerDao;
+	@Injectable
+	private Category category;
 
 	@Tested
 	private ProviderService providerService;
@@ -155,16 +158,74 @@ public class ProviderServiceTest {
 
 		// When: When the providerProfile method is invoked from Service layer, it should
 		// internally called providerProfile method of ProviderDAO.
-		providerService.providerProfile(provider.getUserName());
+		Provider returned_provider = providerService.providerProfile(provider.getUserName());
 
 		new Verifications() {
 			{
-				assertEquals("Shashi", provider.getFirstName());
-				assertEquals("Jaiswal", provider.getLastName());
-				assertEquals("shashi@gmail.com", provider.getEmail());
+				assertEquals("Shashi", returned_provider.getFirstName());
+				assertEquals("Jaiswal", returned_provider.getLastName());
+				assertEquals("shashi@gmail.com", returned_provider.getEmail());
 			}
 		};
 	}
+	
+	@Test
+	public void testGetProviderById() {
+		Provider provider = new Provider(1, "shahkush18", "Kush","Shah", "kshah44@uncc.edu", "1234");
+		
+		
+		// Expectation: The providerProfile method of Provider DAO should get invoked
+		new Expectations() {
+			{
+				providerDao.getProviderById(provider.getProviderId()); result = provider;
+			}
+		};
+
+		// When: When the providerProfile method is invoked from Service layer, it should
+		// internally called providerProfile method of ProviderDAO.
+		
+		
+		Provider prov = providerService.getProviderById(provider.getProviderId());
+
+		new Verifications() {
+			{
+				assertEquals("Kush", prov.getFirstName());
+				assertEquals("Shah", prov.getLastName());
+				assertEquals("kshah44@uncc.edu", prov.getEmail());
+			}
+		};
+	}
+	@Test
+	public void testGetProviderByCategory() {
+		List<Provider> providerList = new ArrayList<Provider>();
+		providerList.add(new Provider(1, "shashi", "Shashi","Jaiswal", "shashi@gmail.com", "password11"));
+		providerList.add(new Provider(1, "kush", "Kush","Shah", "Kush@gmail.com", "password22"));
+		
+		category = new Category();
+		category.setCategoryId(1);
+		
+		// Expectation: The getAllProviders method of Provider DAO should get invoked
+		new Expectations() {
+			{
+				providerDao.getProviderByCategory(category.getCategoryId()); result = providerList;
+			}
+		};
+
+		// When: When the getAllProviderNames method is invoked from Service layer, it should
+		// internally called getAllProviderNames method of ProviderDAO.
+		List<Provider> returnedProviderList = providerService.getProviderByCategoryId(category.getCategoryId());
+
+		new Verifications() {
+			{
+				assertEquals(2, returnedProviderList.size());
+				assertEquals("Shashi", returnedProviderList.get(0).getFirstName());
+				assertEquals("Jaiswal", returnedProviderList.get(0).getLastName());
+				assertEquals("Kush", returnedProviderList.get(1).getFirstName());
+				assertEquals("Shah", returnedProviderList.get(1).getLastName());
+			}
+		};
+	}
+	
 	
 
 }

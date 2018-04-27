@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssdi.campuscare.model.Category;
 import com.ssdi.campuscare.model.Consumer;
 import com.ssdi.campuscare.model.Provider;
+import com.ssdi.campuscare.model.Request;
 import com.ssdi.campuscare.service.CategoryService;
 import com.ssdi.campuscare.service.RequestService;
 
@@ -48,6 +49,9 @@ public class RequestControllerTest {
 
 	@Injectable
 	private Consumer test_consumer;
+
+	@Injectable
+	private Request test_request;
 
 	
 	private MockMvc mockMvc;
@@ -85,12 +89,7 @@ public class RequestControllerTest {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/consumerrequests")
-	public String getConsumerRequests(@RequestBody Consumer consumer) {
-		return requestService.getConsumerRequest(consumer.getConsumerId()).toString();
-
-	}	
-
+	
 	@Test
 	public void testGetConsumerRequests() 
 	{
@@ -115,6 +114,30 @@ public class RequestControllerTest {
 	}
 
 
+	@Test
+	public void testCreateRequest() 
+	{
+		test_request = new Request(1,1,1,"Pending");
+		
+		new Expectations()
+		{{
+			requestService.createRequest(test_request);
+		}};
+		
+		try
+		{
+			mockMvc.perform(post("/createRequest")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(test_request)))
+			.andExpect(status().isOk());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	
 	@Test
 	public void testConsumerUpdateRequestStatus() {
 		
@@ -173,95 +196,5 @@ public class RequestControllerTest {
 		}
 		
 	} 
-
-
-	
-//	
-//	@Test
-//	public void testGetProviderCategories() {
-//		Provider provider = new Provider();
-//		provider.setProviderId(1);
-//		
-//		new Expectations()
-//		{{
-//			categoryService.getProviderCategories(provider.getProviderId());
-//		}};
-//		
-//		
-//		try
-//		{
-//			mockMvc.perform(post("/providercategories")
-//			.contentType(MediaType.APPLICATION_JSON)
-//			.content(objectMapper.writeValueAsString(provider)))
-//			.andExpect(status().isOk());
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//	}
-//
-//
-//	
-//	@Test
-//	public void testAddProviderCategory() {
-//		
-//		JSONObject json = new JSONObject();
-//		json.put("providerId","2");
-//		json.put("categoryId","1");
-//				
-//				
-//		new Expectations()
-//		{{
-//			categoryService.addProviderCategory(Integer.parseInt((String) json.get("providerId")),
-//					Integer.parseInt((String) json.get("categoryId")));
-//		}};
-//		
-//		
-//		try
-//		{
-//			mockMvc.perform(post("/addprovidercategory")
-//					.contentType(MediaType.ALL)
-//					.content(json.toString()))
-//					.andExpect(status().isOk());
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//	} 
-//
-//	
-//	
-//	@Test
-//	public void testremoveProviderCategory() {
-//		
-//		JSONObject json = new JSONObject();
-//		json.put("providerId","3");
-//		json.put("categoryId","5");
-//				
-//				
-//		new Expectations()
-//		{{
-//			categoryService.removeProviderCategory(Integer.parseInt((String) json.get("providerId")),
-//					Integer.parseInt((String) json.get("categoryId")));
-//		}};
-//		
-//		
-//		try
-//		{
-//			mockMvc.perform(post("/removeprovidercategory")
-//					.contentType(MediaType.ALL)
-//					.content(json.toString()))
-//					.andExpect(status().isOk());
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//	} 
 
 }

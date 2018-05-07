@@ -123,8 +123,7 @@ public class RequestDaoTest {
 		requestDao = new RequestDao(jt);
 		JSONArray resultArray = requestDao.getProviderRequest(1);
 
-		new Verifications() {
-			{
+		new Verifications() {{
 				assertEquals(2, resultArray.length());
 
 				assertEquals(1, resultArray.getJSONObject(0).getInt("requestId"));
@@ -137,9 +136,8 @@ public class RequestDaoTest {
 				assertEquals("Academics", resultArray.getJSONObject(1).getString("categoryName"));
 				assertEquals("Accepted", resultArray.getJSONObject(1).getString("status"));
 
-			}
-		};
-	}
+			}};
+}
 
 	@Test
 	public void testGetConsumerRequest() {
@@ -224,7 +222,7 @@ public class RequestDaoTest {
 	  }};
 }
 
-
+    @Test
 	public void testConsumerUpdateRequestStatus() {
 		DataSource ds = getSource();
 		jt = new JdbcTemplate(ds);
@@ -267,22 +265,25 @@ public class RequestDaoTest {
 			{
 				assertEquals(2, resultArray.length());
 
-				assertEquals(1, resultArray.getJSONObject(0).getInt("requestId"));
+				
+				assertEquals(2, resultArray.getJSONObject(0).getInt("requestId"));
 				assertEquals("John Doe", resultArray.getJSONObject(0).getString("fullname"));
-				assertEquals("Computers", resultArray.getJSONObject(0).getString("categoryName"));
-				assertEquals("Cancelled", resultArray.getJSONObject(0).getString("status"));
+				assertEquals("Academics", resultArray.getJSONObject(0).getString("categoryName"));
+				assertEquals("Pending", resultArray.getJSONObject(0).getString("status"));
 
-				assertEquals(2, resultArray.getJSONObject(1).getInt("requestId"));
+				
+				assertEquals(1, resultArray.getJSONObject(1).getInt("requestId"));
 				assertEquals("John Doe", resultArray.getJSONObject(1).getString("fullname"));
-				assertEquals("Academics", resultArray.getJSONObject(1).getString("categoryName"));
-				assertEquals("Pending", resultArray.getJSONObject(1).getString("status"));
+				assertEquals("Computers", resultArray.getJSONObject(1).getString("categoryName"));
+				assertEquals("Cancelled", resultArray.getJSONObject(1).getString("status"));
+
 			}
 		};
 		
 	}
 
 	
-	
+	@Test
 	public void testProviderUpdateRequestStatus() {
 		DataSource ds = getSource();
 		jt = new JdbcTemplate(ds);
@@ -355,7 +356,7 @@ public class RequestDaoTest {
 			}
 		};
 
-		JSONArray resultArray3 = requestDao.ProviderUpdateRequestStatus(2, 1, "Rejected");
+		JSONArray resultArray3 = requestDao.ProviderUpdateRequestStatus(2, 1, "Completed");
 
 		new Verifications() {
 			{
@@ -364,12 +365,12 @@ public class RequestDaoTest {
 				assertEquals(1, resultArray3.getJSONObject(0).getInt("requestId"));
 				assertEquals("Shashikant Jaiswal", resultArray3.getJSONObject(0).getString("fullname"));
 				assertEquals("Computers", resultArray3.getJSONObject(0).getString("categoryName"));
-				assertEquals("Completed", resultArray3.getJSONObject(0).getString("status"));
+				assertEquals("Accepted", resultArray3.getJSONObject(0).getString("status"));
 
 				assertEquals(2, resultArray3.getJSONObject(1).getInt("requestId"));
 				assertEquals("Shashikant Jaiswal", resultArray3.getJSONObject(1).getString("fullname"));
 				assertEquals("Academics", resultArray3.getJSONObject(1).getString("categoryName"));
-				assertEquals("Rejected", resultArray3.getJSONObject(1).getString("status"));
+				assertEquals("Completed", resultArray3.getJSONObject(1).getString("status"));
 			}
 		};
 	}

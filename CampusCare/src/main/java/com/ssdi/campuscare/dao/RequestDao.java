@@ -94,6 +94,7 @@ public class RequestDao implements IRequestDao {
 		return getConsumerRequest(consumer_id);
 	}
 	*/
+	
 	@Override
 	public JSONArray ConsumerUpdateRequestStatus (int request_id, int consumer_id, String status) {
 		String sql = "update request set request_status = ? where request_id = ? ";
@@ -101,6 +102,7 @@ public class RequestDao implements IRequestDao {
 		return getConsumerRequest(consumer_id);
 	}
 	
+	@Override
 	public JSONArray ProviderUpdateRequestStatus(int request_id, int provider_id, String status) {
 		String sql = "update request set request_status = ? where request_id = ?";
 		jdbcTemplate.update(sql, status, request_id);

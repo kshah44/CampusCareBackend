@@ -81,9 +81,19 @@ public class RequestDao implements IRequestDao {
 
 	@Override
 	public Request createRequest(Request request) {
+	
+		String sql1 = "SELECT count(1) FROM request where consumer_id = ? and provider_id = ? and category_id = ? and request_status in (\"Pending\",\"Accepted\")";
+		int count = jdbcTemplate.queryForObject(sql1, Integer.class, request.getConsumerId(), request.getProviderId(), request.getCategoryId());
+
+		if (count > 0) {
+			Request null_request = new Request();
+		    return null_request;
+		}
+		else {	
 		String sql = "INSERT INTO request (consumer_id, provider_id, category_id) values (?, ?, ?)";
 		jdbcTemplate.update(sql, request.getConsumerId(), request.getProviderId(), request.getCategoryId());
 		return request;
+		}
 	}
 
 	/*
